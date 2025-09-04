@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MA9MO3 CALL - اكتشف المتصل</title>
+
+  <!-- Meta Tags للمشاركة في واتساب -->
+  <meta property="og:title" content="MA9MO3 CALL - اكتشف المتصل" />
+  <meta property="og:description" content="تطبيق عربي للتعرف على هوية الأرقام - اكتشف اسم المتصل بسهولة!" />
+  <meta property="og:image" content="https://your-image-link.jpg" />
+  <meta property="og:url" content="https://ma9mo3-call.netlify.app/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom right, #f2f7ff, #dbeafe);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      background-color: #fff;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.5em;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    p.description {
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 0.95em;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 1em;
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      outline: none;
+      background-color: #f9fbff;
+      color: #222;
+      box-sizing: border-box;
+    }
+
+    input[readonly] {
+      background-color: #eee;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .msg {
+      margin-top: 15px;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.8em;
+      color: #888;
+    }
+
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 25px 15px;
+      }
+      h1 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <div class="logo">📱⚔️</div>
+    <h1>MA9MO3 CALL</h1>
+    <p class="description">تعرف على اسم المتصل من جميع الدول العربية بسهولة وسرعة</p>
+
+    <select id="country" onchange="updateCode()">
+      <option value="">🌍 اختر الدولة</option>
+      <option value="+212">🇲🇦 المغرب</option>
+      <option value="+213">🇩🇿 الجزائر</option>
+      <option value="+216">🇹🇳 تونس</option>
+      <option value="+20">🇪🇬 مصر</option>
+      <option value="+966">🇸🇦 السعودية</option>
+      <option value="+971">🇦🇪 الإمارات</option>
+      <option value="+964">🇮🇶 العراق</option>
+      <option value="+963">🇸🇾 سوريا</option>
+      <option value="+962">🇯🇴 الأردن</option>
+      <option value="+965">🇰🇼 الكويت</option>
+      <option value="+974">🇶🇦 قطر</option>
+      <option value="+968">🇴🇲 عمان</option>
+      <option value="+973">🇧🇭 البحرين</option>
+      <option value="+218">🇱🇾 ليبيا</option>
+      <option value="+249">🇸🇩 السودان</option>
+      <option value="+222">🇲🇷 موريتانيا</option>
+      <option value="+967">🇾🇪 اليمن</option>
+      <option value="+961">🇱🇧 لبنان</option>
+      <option value="+970">🇵🇸 فلسطين</option>
+    </select>
+
+    <input type="text" id="code" placeholder="رمز الدولة" readonly />
+    <input type="text" id="number" placeholder="أدخل الرقم بدون 0" />
+
+    <button onclick="search()">🔍 البحث عن الاسم</button>
+
+    <div class="msg" id="msg">💡 الخدمة مجانية وآمنة لجميع المستخدمين</div>
+  </div>
+
+  <div class="footer">
+    ⚔️ MA9MO3 CALL - تصميم أمين | جميع الحقوق محفوظة © 2025
+  </div>
+
+  <script>
+    function updateCode() {
+      const select = document.getElementById("country");
+      const codeInput = document.getElementById("code");
+      codeInput.value = select.value;
+    }
+
+    function search() {
+      const code = document.getElementById("code").value.trim();
+      const number = document.getElementById("number").value.trim();
+      const msg = document.getElementById("msg");
+
+      if (!code || !number) {
+        msg.textContent = "⚠️ المرجو إدخال رمز الدولة والرقم.";
+        msg.style.color = "#d9534f";
+        return;
+      }
+
+      if (!/^\d+$/.test(number)) {
+        msg.textContent = "🚫 الرقم يجب أن يحتوي على أرقام فقط.";
+        msg.style.color = "#d9534f";
+        return;
+      }
+
+      msg.textContent = "⏳ يتم الآن التحقق...";
+      msg.style.color = "#007bff";
+
+      // نمر للواجهة ديال التحميل
+      setTimeout(() => {
+        window.location.href = "loading.html";
+      }, 700);
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        search();
+      }
+    });
+  </script>
+
+</body>
+    </html>
