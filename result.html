@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MA9MO3 CALL - نتائج الرقم الحقيقية</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #f2f7ff, #dbeafe);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .logo {
+      font-size: 2.5em;
+      color: #007bff;
+      margin: 20px 0;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    .result-container {
+      background-color: #fff;
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+      max-width: 400px;
+      width: 90%;
+      text-align: right;
+    }
+
+    .info {
+      margin-bottom: 15px;
+      font-size: 1.05em;
+    }
+
+    .info span {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .status div {
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .whatsapp { background-color: #25D366; }
+    .facebook { background-color: #4267B2; }
+    .other { background-color: #888; }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover { background-color: #0056b3; }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.8em;
+      color: #888;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.6em; }
+      .info { font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">📱⚔️</div>
+  <h1>نتائج الرقم الحقيقية</h1>
+
+  <div class="result-container">
+    <div class="info"><span>الاسم:</span> <span id="name">جارٍ التحميل...</span></div>
+    <div class="info"><span>الدولة:</span> <span id="country">جارٍ التحميل...</span></div>
+    <div class="info"><span>المدينة:</span> <span id="city">جارٍ التحميل...</span></div>
+
+    <div class="status">
+      <div id="whatsapp" class="other">واتساب</div>
+      <div id="facebook" class="other">فيسبوك</div>
+      <div id="other" class="other">تطبيقات أخرى</div>
+    </div>
+
+    <button onclick="goHome()">🔙 العودة للصفحة الرئيسية</button>
+  </div>
+
+  <div class="footer">
+    ⚔️ MA9MO3 CALL - تصميم أمين | جميع الحقوق محفوظة © 2025
+  </div>
+
+  <script>
+    function goHome() {
+      window.location.href = "index.html";
+    }
+
+    // ===== مثال لاستدعاء API =====
+    // غيّر الرابط YOUR_API_URL وYOUR_KEY حسب API ديالك
+    const code = localStorage.getItem("countryCode") || "+212"; // مثال تخزين رمز الدولة
+    const number = localStorage.getItem("phoneNumber") || "600123456"; // مثال الرقم
+
+    fetch(`https://api.example.com/lookup?number=${code}${number}&apikey=YOUR_KEY`)
+      .then(res => res.json())
+      .then(data => {
+        // معلومات حقيقية
+        document.getElementById("name").textContent = data.name || "غير متوفر";
+        document.getElementById("country").textContent = data.country || "غير متوفر";
+        document.getElementById("city").textContent = data.city || "غير متوفر";
+
+        document.getElementById("whatsapp").className = data.whatsapp ? "whatsapp" : "other";
+        document.getElementById("facebook").className = data.facebook ? "facebook" : "other";
+        document.getElementById("other").className = data.otherApps ? "other" : "other";
+      })
+      .catch(err => {
+        document.getElementById("name").textContent = "خطأ في جلب البيانات";
+        document.getElementById("country").textContent = "-";
+        document.getElementById("city").textContent = "-";
+        console.error(err);
+      });
+  </script>
+
+</body>
+  </html>
